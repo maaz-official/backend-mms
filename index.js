@@ -16,6 +16,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cors({
     origin: 'https://madrasa-system.netlify.app', // Allow only your Netlify app
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+    credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
 
