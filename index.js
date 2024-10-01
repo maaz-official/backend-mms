@@ -16,7 +16,9 @@ dotenv.config();
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-  origin: 'https://madrasa-system.netlify.app' // Allow your frontend domain
+  origin: 'https://madrasa-system.netlify.app', // Whitelist the frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],    // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
 }));
 
 mongoose
