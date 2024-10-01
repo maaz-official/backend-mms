@@ -16,7 +16,7 @@ app.use(express.json({ limit: '10mb' }));
 const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
 
 // CORS configuration
-app.use(cors({
+const corsOptions = {
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps, curl, Postman)
         if (!origin || allowedOrigins.includes(origin)) {
@@ -28,21 +28,12 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true // Allow credentials (cookies, authorization headers)
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Handle preflight requests (OPTIONS)
-app.options('*', cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
+app.options('*', cors(corsOptions));
 
 // Connect to MongoDB
 mongoose
