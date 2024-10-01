@@ -1,13 +1,14 @@
+// Load environment variables as early as possible
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const app = express();
 const Routes = require("./routes/route.js");
 
 const PORT = process.env.PORT || 5000;
-
-dotenv.config();
 
 // Use express.json to parse JSON request bodies
 app.use(express.json({ limit: '10mb' }));
@@ -16,9 +17,12 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cors({
     origin: 'https://madrasa-system.netlify.app', // Allow only your Netlify app
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-    credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    credentials: true // Allow credentials (if needed for auth cookies or headers)
 }));
+
+// Handle preflight OPTIONS request for CORS
+app.options('*', cors());
 
 // Connect to MongoDB
 mongoose
@@ -27,7 +31,9 @@ mongoose
         useUnifiedTopology: true
     })
     .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
+    .catch((err) => {
+        console.error("Failed to connect to MongoDB:", err.message);
+    });
 
 // A simple route to check if the API is running
 app.get("/", (req, res) => {
@@ -39,5 +45,5 @@ app.use('/api', Routes);
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server started at port no. ${PORT}`);
+    console.log(`Server started at port ${PORT}`);
 });
