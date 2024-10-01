@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 mongoose
-    .connect(process.env.MONGO_URL, {
+    .connect(process.env.MONGO_URL || "mongodb+srv://mms:<db_password>@cluster0.5if0a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
