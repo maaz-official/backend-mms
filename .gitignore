@@ -1,0 +1,48 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Expo
+.expo/
+.expo-shared/
+
+# macOS
+.DS_Store
+
+# Android
+/android/.gradle
+/android/app/build
+/android/build
+
+# iOS
+/ios/Pods
+/ios/build
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata
+ios/Podfile.lock
+
+# VSCode
+.vscode/
+
+# React Native
+/coverage/
+*.log
+*.tflite
+*.plist
+
+# Metro bundler
+.expo/
+.expo-shared/
+.expo-cache/
+
+# Environment
+.env
+
+# Logs
+*.log
+*.tflite
+*.plist
