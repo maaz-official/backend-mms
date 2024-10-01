@@ -15,7 +15,7 @@ app.use(express.json({ limit: '10mb' }));
 // CORS configuration
 app.use(cors({
     origin: 'https://madrasa-system.netlify.app', // Allow only your Netlify app
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
 
@@ -29,12 +29,12 @@ mongoose
     .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
 
 // A simple route to check if the API is running
-app.get("/hello", (req, res) => {
+app.get("/", (req, res) => {
     res.json("API is running....");
 });
 
 // Use defined routes
-app.use('/', Routes);
+app.use('/api', Routes);
 
 // Start the server
 app.listen(PORT, () => {
