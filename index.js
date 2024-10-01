@@ -15,14 +15,10 @@ dotenv.config();
 
 app.use(express.json({ limit: '10mb' }))
 
-app.use(cors({
-  origin: '', // Allow your frontend's origin
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true // if cookies or other credentials are being sent
-}));
+app.use(cors({}));
 
 mongoose
-    .connect(process.env.MONGO_URL || "mongodb+srv://mms:mms@cluster0.5if0a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+    .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -31,7 +27,7 @@ mongoose
 
 
     app.get("", (req , res) => {
-        res.send("api is tunning....")
+        res.json("api is tunning....")
     })
 
 app.use('/', Routes);
