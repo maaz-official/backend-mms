@@ -1,41 +1,42 @@
-const express = require("express")
-const cors = require("cors")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-// const bodyParser = require("body-parser")
-const app = express()
-const Routes = require("./routes/route.js")
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const app = express();
+const Routes = require("./routes/route.js");
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 dotenv.config();
 
-// app.use(bodyParser.json({ limit: '10mb', extended: true }))
-// app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
+// Use express.json to parse JSON request bodies
+app.use(express.json({ limit: '10mb' }));
 
-app.use(express.json({ limit: '10mb' }))
-
+// CORS configuration
 app.use(cors({
-  origin: 'https://madrasa-system.netlify.app', // Whitelist the frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],    // Specify allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+    origin: 'https://madrasa-system.netlify.app', // Allow only your Netlify app
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
 
+// Connect to MongoDB
 mongoose
     .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then(console.log("Connected to MongoDB"))
-    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err))
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
 
+// A simple route to check if the API is running
+app.get("/hello", (req, res) => {
+    res.json("API is running....");
+});
 
-    app.get("", (req , res) => {
-        res.json("api is tunning....")
-    })
-
+// Use defined routes
 app.use('/', Routes);
 
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server started at port no. ${PORT}`)
-})
+    console.log(`Server started at port no. ${PORT}`);
+});
