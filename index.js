@@ -16,13 +16,13 @@ dotenv.config();
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-  origin: 'https://sms-project-forex-studio-yk8a.vercel.app', // Allow your frontend's origin
+  origin: '', // Allow your frontend's origin
   methods: 'GET,POST,PUT,DELETE',
   credentials: true // if cookies or other credentials are being sent
 }));
 
 mongoose
-    .connect(process.env.MONGO_URL || "mongodb+srv://mms:<db_password>@cluster0.5if0a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+    .connect(process.env.MONGO_URL || "mongodb+srv://mms:mms@cluster0.5if0a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
