@@ -16,7 +16,7 @@ dotenv.config();
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-  origin: 'https://mms-frontend-kappa.vercel.app',
+  origin: 'https://madrasa-system.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
