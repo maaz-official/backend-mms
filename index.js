@@ -15,13 +15,10 @@ dotenv.config();
 
 app.use(express.json({ limit: '10mb' }))
 
-const corsOptions = {
-  origin: 'https://mms-frontend-kappa.vercel.app', // Replace with your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-  credentials: true, // Enable sending cookies from the frontend
-};
-
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'https://mms-frontend-kappa.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 mongoose
     .connect(process.env.MONGO_URL, {
